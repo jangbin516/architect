@@ -3,29 +3,25 @@
  */
 package Framework;
 
-import Components.Middle.MiddleFilter;
-import Components.Sink.SinkFilter;
-import Components.Source.SourceFilter;
-
 public class LifeCycleManager {
     public static void main(String[] args) {
-        try {
-            CommonFilter filter1 = new SourceFilter("Students.txt");
-            CommonFilter filter2 = new SinkFilter("Output.txt");
-            CommonFilter filter3 = new MiddleFilter();
-            
-            filter1.connectOutputTo(filter3);
-            filter3.connectOutputTo(filter2);
-            
-            Thread thread1 = new Thread(filter1);
-            Thread thread2 = new Thread(filter2);
-            Thread thread3 = new Thread(filter3);
-            
-            thread1.start();
-            thread2.start();
-            thread3.start();
-        } catch(Exception e) {
-            e.printStackTrace();
+        if (args == null || args.length == 0) {
+            throw new IllegalArgumentException(
+                    "Run one problem at a time: Framework.LifeCycleManagerProblem1 | Problem2 | Problem3");
+        }
+
+        switch (args[0]) {
+            case "1":
+                LifeCycleManagerProblem1.main(new String[0]);
+                break;
+            case "2":
+                LifeCycleManagerProblem2.main(new String[0]);
+                break;
+            case "3":
+                LifeCycleManagerProblem3.main(new String[0]);
+                break;
+            default:
+                throw new IllegalArgumentException("Usage: java -cp src Framework.LifeCycleManager [1|2|3]");
         }
     }
 }
